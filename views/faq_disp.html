@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include _head.html%>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <% include _navbar.html %>
+        <% include _alert.html%>
+        <div id="disp_page">
+            <div class="container">
+                <p class="text-muted" id="display_dates">
+                    作成日:<span id="displaycreated"></span>
+                    <br>
+                    更新日:<span id="displaymodified"></span>
+                </p>
+                <div id="doc_page_disp">
+                    <h3 id="title-disp"></h3>
+                    <div id ="content-disp" class="content-container"></div>
+                    <p>
+                        <a href="#" class="btn btn-default" id="editButton" type="button">編集</a>
+                        <a href="#" class="btn btn-default" id="backToListButton" type="button">一覧へ</a>
+                        <a href="#" class="btn btn-danger"  id="deleteButton" type="button">削除</a>
+                    </p>
+                </div>
+                <div class="hide">
+                    <input type="text" id="created">
+                    <input type="text" id="modified">
+                    <input type="text" id="_id">
+                    <input type="text" id="_rev">
+                </div>
+            </div><!-- .container -->
+        </div>  <!-- #disp_page -->
+        <script src='/scripts/faqPage.js'></script>
+        <script src='/scripts/util.js'></script>
+        <script>
+            faqPage.handleDeleteButton = function(){
+                var msg = "削除します。";
+                modalConfirm.show(msg,function(){
+                    loading.show();
+                    faqPage.deleteDocument( $('#_id').val(), $('#_rev').val(),
+                        function( data, textStatus, jqXHR ){
+                            window.location.href='/faq/list';
+                        }
+                        //@TODO 保存が失敗した場合の制御
+                        ,function( jqXHR, textStatus, errorThrown ){
+                        }
+                        ,function(){
+                            loading.hide();
+                        }
+                    );
+                });
+            }
+            
+            $(function(){
+                //開いた直後は文書は空の状態なので、URLからIDを抽出して文書をサーバーから引っ張ってきて表示する。
+                var id = $(location).attr('pathname').split('/').slice(-1)[0];
+                faqPage.setDispPageData(id);
+                
+                //検索結果一覧から開かれて場合は色々ボタンをいじる。
+                var search = $(location).attr('search');
+
+                if(search === '?search'){
+                    //検索結果一覧から遷移した場合は、一覧に戻るせずに、検索結果一覧に戻らせる。
+                    //ここでは手段がないので不本意ながらhistory.backさせる。
+                    //また、削除ボタンは非表示にする。
+                    $('#backToListButton').text('検索結果に戻る');
+                    $('#backToListButton').attr('href', '#');
+                    $('#backToListButton').click(function(){
+                        history.back();
+                    });
+                    $('#deleteButton').addClass('hide');
+                }else{
+                    //普通に文書一覧から遷移した場合は、一覧画面に戻らせる。
+                    $('#backToListButton').attr('href', '/faq/list');
+                    //また削除ボタンのイベントを割り当てる。
+                    $('#deleteButton').click(faqPage.handleDeleteButton);
+                }
+                $('#editButton').attr('href','/faq/edit/'+id);
+            });
+        </script>
+        <% include _modal.html %>
+    </body>
+</html>

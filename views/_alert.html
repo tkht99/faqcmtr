@@ -1,0 +1,81 @@
+<% if( typeof success !== 'undefined' && success.length > 0){ %>
+    <div class="alert alert-success" role="alert" id="alert-success">
+        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+        <span id="message_success"><%= success %></span>
+    </div>
+<% } else { %>
+    <div class="alert alert-success hide" role="alert" id="alert-success">
+        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
+        <span id="message_success"></span>
+    </div>
+<% } %>
+
+<% if( typeof info !== 'undefined' && info.length > 0){ %>
+    <div class="alert alert-info" role="alert" id="alert-info">
+        <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+        <span id="message_info"><%= info %></span>
+    </div>
+<% } else { %>
+    <div class="alert alert-info hide" role="alert" id="alert-info">
+        <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+        <span id="message_info"></span>
+    </div>
+<% } %>
+
+<% if( typeof warning !== 'undefined' && warning.length > 0){ %>
+    <div class="alert alert-warning" role="alert" id="alert-warning">
+        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+        <span id="message_warning"><%= warning %></span>
+    </div>
+<% } else { %>
+    <div class="alert alert-warning hide" role="alert" id="alert-warning">
+        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+        <span id="message_warning"></span>
+    </div>
+<% } %>
+
+<% if( typeof error !== 'undefined' && error.length > 0){ %>
+    <div class="alert alert-danger" role="alert" id="alert-danger">
+        <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+        <span id="message_error"><%= error %></span>
+    </div>
+<% } else { %>
+    <div class="alert alert-danger hide" role="alert" id="alert-danger">
+        <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+        <span id="message_error"></span>
+    </div>
+<% } %>
+<script>
+    var messagebar = messagebar || {};
+    
+    messagebar.clear = function(){
+        $('#alert-success').addClass('hide');
+        $('#alert-info').addClass('hide');
+        $('#alert-warning').addClass('hide');
+        $('#alert-danger').addClass('hide');
+        $('#alert-success').text('');
+        $('#alert-info').text('');
+        $('#alert-warning').text('');
+        $('#alert-danger').text('');
+    };
+    messagebar.success = function(msg){
+        $('#alert-success').text(msg);
+        $('#alert-success').removeClass('hide');
+    };
+    
+    messagebar.info = function(msg){
+        $('#alert-info').text(msg);
+        $('#alert-info').removeClass('hide');
+    };
+
+    messagebar.warning = function(msg){
+        $('#alert-warning').text(msg);
+        $('#alert-warning').removeClass('hide');
+    };
+
+    messagebar.error = function(msg){
+        $('#alert-danger').text(msg);
+        $('#alert-danger').removeClass('hide');
+    };
+    
+</script>

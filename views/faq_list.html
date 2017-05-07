@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include _head.html%>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <% include _navbar.html %>
+        <% include _alert.html%>
+        <div id="list_page">
+            <div class="container table-responsive">
+                <% include _pagination.html%>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Modified</th>
+                            <th>Title</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_body"></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+        </div>  <!-- list_page -->
+        <script src='/scripts/faqPage.js'></script>
+        <script src='/scripts/util.js'></script>
+        <!-- リストの１行を表示するための雛形 -->
+        <script type='text/template' id='rowtemplate'>
+            <tr>
+                <td>{{= modified }}</td>
+                <td>
+                    <a href="/faq/disp/{{= _id }}">
+                        {{= title }}
+                    </a>
+                </td>
+            </tr>
+        </script>
+        <script>
+            $(function(){
+                faqPage.currentPage = 1;
+                faqPage.updateListPage();
+            });
+        </script>
+        <% include _modal.html %>
+    </body>
+</html>

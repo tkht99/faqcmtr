@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include _head.html%>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <% include _navbar.html %>
+        <% include _alert.html%>
+            <div id="doc_page">
+                <div class="container">
+                    <div id="doc_page_edit">
+                        <form>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input class="form-control" type="text" id="title" placeholder="Input Title Here!!">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="content" name="content"></textarea>
+                            </div>
+                            <p>
+                                <a href="#save" class="btn btn-default" id="saveButton" type="button">保存</a>
+                                <a href="#" class="btn btn-default" id="backToDispButton" type="button">戻る</a>
+                                <a href="#" class="btn btn-default" id="backToListButton" type="button">一覧へ</a>
+                            </p>
+                            <div class="hide">
+                                <input type="text" id="created">
+                                <input type="text" id="modified">
+                                <input type="text" id="_id">
+                                <input type="text" id="_rev">
+                            </div>
+                        </form>
+                    </div>  <!-- #doc_page_edit -->
+                </div>  <!-- .container -->
+            </div>  <!-- #doc_page -->
+        </div>  <!-- .major_content -->
+        <script src='/scripts/faqPage.js'></script>
+        <script src='/scripts/util.js'></script>
+        <script>
+            //保存ボタンのイベントハンドラ
+            faqPage.handleSaveButtonClick = function(){
+                messagebar.clear();
+                //入力チェック
+                if($('#title').val().length < 1){
+                    messagebar.error('タイトルは必須です。');
+                    return;
+                }
+                var msg = "保存します。";
+                modalConfirm.show(msg,function(){
+                    loading.show();         //ロード中GIFの表示
+                    faqPage.saveDocument(
+                        //保存成功時には一覧画面に遷移する。
+                        function( data, textStatus, jqXHR ){
+                            window.location.href='/faq/list';
+                        },
+                        //@TODO 保存が失敗した場合の制御
+                        function( jqXHR, textStatus, errorThrown ){
+                        },
+                        function(){
+                            loading.hide();         //ロード中GIFの消去
+                        }
+                    );
+                });
+            }
+        
+            $(function(){
+                if($(location).attr('pathname').slice(-4) === '/new' ){
+                    //新規文書の場合は、文書表示画面に戻るボタンを消す。
+                    faqPage.setNewPageData();
+                    $('#backToDispButton').addClass('hide');
+                    $('#backToDispButton').attr('href','/faq/disp/');
+                }else{
+                    //そうでない場合は、文書の内容を画面にセットしてから、
+                    //文書表示画面に戻るボタンの行き先を変えて、表示させる。
+                    var id = $(location).attr('pathname').split('/').slice(-1)[0];
+                    faqPage.setEditPageData(id);
+                    $('#backToDispButton').removeClass('hide');
+                    $('#backToDispButton').attr('href','/faq/disp/'+id);
+                }
+                
+                //一覧に戻るボタンのURLを割り当てる。
+                $('#backToListButton').attr('href','/faq/list');
+                
+                //保存ボタンクリック時のイベントを割り当てる。
+                $('#saveButton').click(faqPage.handleSaveButtonClick);
+            });
+            
+        </script>
+        <% include _modal.html %>
+    </body>
+</html>

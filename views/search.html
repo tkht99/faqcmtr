@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include _head.html%>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <% include _navbar.html %>
+        <% include _alert.html %>
+        <div class="container table-responsive">
+            <h3><%= total_rows %>件がヒットしました。(ワード:<%= searchword %>)</h3>
+            <table class="table .table-condensed">
+                <thead>
+                    <tr><th>Title</th></tr>
+                </thead>
+                <tbody id="list_bdy">
+                <% rows.forEach(function(val ,key){%>
+                    <tr> 
+                        <td>
+                            <a href="/faq/disp/<%= val.id %>?search"><%= val.fields.title %></a>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <script src='/scripts/util.js'></script>
+        <% include _modal.html %>
+    </body>
+</html>

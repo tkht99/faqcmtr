@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include _head.html %>
+        <title><%= title %></title>
+    </head>
+    <body>
+        <% include _navbar.html %>
+        <% include _alert.html%>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>SCS2部 照会対応履歴</h1>
+                <p>
+                    ここに色々何か表示する。<br>
+                    最新の更新履歴でも動的に表示しますか？
+                </p>
+            </div>  <!-- container -->
+        </div>  <!-- jumbotraon -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-default btn-lg btn-block" href="/faq/list" role="button">一覧</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-primary btn-lg btn-block" href="/faq/new" role="button">新規文書</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-default btn-lg btn-block" href="#" role="button">&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

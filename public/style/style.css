@@ -1,0 +1,29 @@
+/* style.css
+ * This file provides css styles.
+ */
+
+/* Bootstrapのスタイルを微調整 */
+/* ナビゲーションバーの下が空かないようにする */
+.navbar{
+    margin-bottom: 0px;
+}
+/* ページャーの上下が空かないようにする */
+.pagination{
+    margin-top : 0px;
+    margin-bottom : 0px;
+}
+/* アラートの下の余白を消す */
+.alert{
+    margin-bottom : 0px;
+}
+
+/* ブロック要素を非表示 */
+.hide{
+    display : none;
+}
+
+/* 本文表示領域枠 */
+.content-container{
+    border-radius: 3px;
+    border : solid 1px #EEEEEE;
+}
