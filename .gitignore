@@ -1,3 +1,4 @@
+<<<<<<< Upstream, based on 0de883a265925bf630b920bc2effce48511c1d67
 # Logs
 logs
 *.log
@@ -59,3 +60,6 @@ typings/
 
 #vcap_services logal config
 vcap-local.json
+=======
+launchConfigurations/
+>>>>>>> 0da64e5 test
