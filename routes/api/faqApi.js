@@ -42,7 +42,7 @@ router.route('/:id')
     req.body.modified = new Date();
     req.body._id = req.params.id;
     res.type('application/json');
-    repository.create(req.body,function(err, body){
+    repository.update(req.body,function(err, body){
        if(!err){
            res.status(201).send(body);
        }else{
