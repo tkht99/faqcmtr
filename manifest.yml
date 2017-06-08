@@ -7,4 +7,4 @@ applications:
   host: faqcmtr
   disk_quota: 1024M
   services:
-  - CloudantNoSQLDB-1c
+  - CloudantNoSQLDB-dq
